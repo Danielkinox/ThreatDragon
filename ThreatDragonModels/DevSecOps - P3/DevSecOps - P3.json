@@ -1,5 +1,4 @@
 {
-  "version": "2.1.1",
   "summary": {
     "title": "Bedrohungsmodell - OTT Auth",
     "owner": "Firma Allsecure",
@@ -78,28 +77,28 @@
                 {
                   "id": "60b8edc0-3f6c-435f-aa1b-b0079fdba18d",
                   "title": "Client side Malware: Logger/ Phishing site generator/Phishing Emails",
-                  "status": "Open",
-                  "severity": "Low",
+                  "status": "Mitigated",
+                  "severity": "Medium",
                   "type": "Spoofing",
                   "description": "By having Malware installed or with a phishing Email, which presents the user with fake websites and an SMS listenter(in the Malware case), the attacker can circumvent 2FA and get the login details and the user session.\nSee: Mitre ID 98: Phishing\nAtt&ck T1566: Phishing\nAtt&ack",
-                  "mitigation": "This only works for the web app and not the mobile client and phishing Websites are easily detectable",
+                  "mitigation": "Phishing Detection: According to D3fend, there are many widespread measures to detect phishing.\nMost of the measures are to be implemented by the email client or provider or external software such as the internet Browser\nHere is a list of measures by their code:\nD3-FA\nD3-DI\nD3-SMRA : Characterize the reputation of mail transfer agents. Phishing mails have a very low reputation. This is to be implemented by the email provider\nD3-SRA\nD3-FIM\nD3-URA\nD3-ID\nD3-EFA\nD3-DA\nD3-UA\nD3-HD\nD3-UGLPA (To be implemented in the SIEM system)\nD3-NTCD (To be implemented in the SIEM system)\nD3-PHDURA (To be implemented in the SIEM system)\n\n(ASVS)4.1.1\nMASVS-NETWORK-1",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 101,
-                  "score": ""
+                  "score": "3"
                 },
                 {
                   "id": "b3a87662-351b-4bbe-a602-89faf7257f7d",
-                  "title": "Cross Zone Scripting",
+                  "title": "Process Injection",
                   "status": "Open",
-                  "severity": "Medium",
+                  "severity": "High",
                   "type": "Elevation of privilege",
-                  "description": "CAPEC-104\nAtt&ck: T1055 \nafter the exploit a rootkit could be left behind\n(Att&ck: T1014) ",
-                  "mitigation": "",
+                  "description": "By Injecting Code in the username line commands can be executed in the 2FA service\nCAPEC-242\nAtt&ck: T1055 ",
+                  "mitigation": "The System has to do proper input vetting. This can be done with:\nD3-SCA (SIEM System)\nD3-PSA (SIEM System)\nD3-FIM (Databases)\nD3-EAL (Databases): Sign \nD3-FR (SIEM System)\nD3-EDL (All individual internal system nodes):\nThis Blocks the execution of commands accordingly with well defined policies.\nThis includes: Malware scanners, scanners for known exploits. Files without signatures, runtime behaviour scanners or non allowed system or DB calls (This kind of falls into D3-SCA)\nD3-DA (Databases)\nD3-RF (Triggered by the SIEM system or by the Database on failed file integrity checks)\nD3-MBT (Databases)\n\n(ASVS)5.1.1\nMASVS-CODE-4",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 111,
-                  "score": ""
+                  "score": "2,6"
                 }
               ],
               "hasOpenThreats": true,
@@ -144,24 +143,24 @@
                   "severity": "Medium",
                   "type": "Tampering",
                   "description": "CAPEC 94: AiTM\nAtt&ck 1557: AiTM\nVia an admin account, change the mentioned information",
-                  "mitigation": "",
+                  "mitigation": "This can be solved by the SIEM system using:\nD3-CAA\nD3-NTF\nD3-NTCD: Establish a community of network host and detect statistical deviations to find accounts/host that have no legitimate reason to contact the server\nD3-PHDURA\nD3-CSPP\nD3-UGLPA\nD3-PMAD\nD3-RTSD\n\n(ASVS)1.14.1\nMASVS-NETWORK-1",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 102,
-                  "score": ""
+                  "score": "2,2"
                 },
                 {
                   "id": "95b20a20-0ae9-4116-9235-64d1c0646b54",
                   "title": "HTTPS package flooding",
                   "status": "Mitigated",
-                  "severity": "Medium",
+                  "severity": "High",
                   "type": "Denial of service",
-                  "description": "Client side HTTPS flooding\nCAPEC-469\nAtt&ck T-1499",
-                  "mitigation": "SIEM system in place but no IP logging",
+                  "description": "Client side HTTPS flooding\nCAPEC-469\nAtt&ck T-1498",
+                  "mitigation": "SIEM system and webapp have to put in place:\nD3-NTCD\nD3-RTSD\nD3-PHDURA\nD3-PMAD: Collect the metadata of the network communication protocol to identify statistical outliers and ignore/IP-Ban the connecting client\nD3-ISVA\nD3-ITF\nD3-NTF\nD3-UGLPA\n\n(ASVS)8.1.4\nMASVS-CODE-3",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 109,
-                  "score": ""
+                  "score": "4,6"
                 }
               ],
               "hasOpenThreats": true
@@ -169,7 +168,7 @@
           },
           {
             "position": {
-              "x": 501,
+              "x": 500,
               "y": -10
             },
             "size": {
@@ -204,12 +203,12 @@
                   "status": "Open",
                   "severity": "High",
                   "type": "Information disclosure",
-                  "description": "due to a lack of input vetting, via Command Injection (CAPEC-248) from the mobile app The database could be read out.\nThis will also result in the encryption of all database files for impact (Att&ck T1486)",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "description": "due to a lack of input vetting, via Command Injection (CAPEC-248, T1055) from the mobile app The database could be read out.",
+                  "mitigation": "The System has to do proper input vetting. This can be done with:\nD3-SCA (SIEM System)\nD3-PSA (SIEM System)\nD3-FIM (Databases)\nD3-EAL (Databases)\nD3-FR (SIEM System)\nD3-EDL (All individual internal system nodes)\nThis Blocks the execution of commands accordingly with well defined policies.\nThis includes: Malware scanners, scanners for known exploits. Files without signatures, runtime behaviour scanners or non allowed system or DB calls (This kind of falls into D3-SCA)\nD3-DA (Databases)\nD3-RF (Triggered by the SIEM system or by the Database on failed file integrity checks)\nD3-MBT (Databases)\n\n(ASVS)8.3.1\nMASVS-CODE-4",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 108,
-                  "score": ""
+                  "score": "1,6"
                 }
               ],
               "hasOpenThreats": true,
@@ -390,66 +389,6 @@
               {
                 "x": 237,
                 "y": 39
-              }
-            ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "2. Weiterleitung\nTelefonnummer",
-              "description": "",
-              "outOfScope": false,
-              "isBidirectional": false,
-              "reasonOutOfScope": "",
-              "protocol": "TLS",
-              "isEncrypted": true,
-              "isPublicNetwork": false,
-              "hasOpenThreats": false,
-              "threats": [],
-              "isTrustBoundary": false
-            },
-            "id": "63356151-e316-4a82-8224-9a7c729cfbee",
-            "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Erwarteter OTT"
-                  }
-                }
-              }
-            ],
-            "source": {
-              "cell": "94f68ce7-aa88-45a4-ba41-c0b62d6a959c"
-            },
-            "target": {
-              "cell": "a1d5bbe6-465f-43bb-bd96-7ce687db37aa"
-            },
-            "vertices": [
-              {
-                "x": 470,
-                "y": 130
-              },
-              {
-                "x": 390,
-                "y": 130
               }
             ]
           },
@@ -1643,9 +1582,109 @@
             ]
           },
           {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Data Flow",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "921f2e33-b665-45e8-9da1-11bce55298ef",
+            "source": {
+              "cell": "e4a83807-8271-4f24-840f-fb8e45d28e5b"
+            },
+            "target": {
+              "x": 1135,
+              "y": 371
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "2. Weiterleitung\nTelefonnummer",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "TLS",
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "63356151-e316-4a82-8224-9a7c729cfbee",
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "Erwarteter OTT"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "94f68ce7-aa88-45a4-ba41-c0b62d6a959c"
+            },
+            "target": {
+              "cell": "a1d5bbe6-465f-43bb-bd96-7ce687db37aa"
+            },
+            "vertices": [
+              {
+                "x": 470,
+                "y": 130
+              },
+              {
+                "x": 390,
+                "y": 130
+              }
+            ]
+          },
+          {
             "position": {
               "x": 340,
-              "y": -160
+              "y": -165
             },
             "size": {
               "width": 120,
@@ -1684,16 +1723,16 @@
               "threats": [
                 {
                   "id": "5b8abe82-fab5-4b62-b31b-106cdd8697b1",
-                  "title": "New STRIDE threat",
+                  "title": "Lack of ip tracking",
                   "status": "Open",
-                  "severity": "High",
+                  "severity": "Medium",
                   "type": "Repudiation",
                   "description": "No IP-Adress Tracking. This makes forensic analysis and legal action against attack next to impossible\nCAPEC-268: Audit Log Manipulation\nAtt&ck T1654:  Log Enumeration",
-                  "mitigation": "",
+                  "mitigation": "There is no entry in the D3fend database on this.\nHowever the fix is: Add the IP adress in the logs\n\n(ASVS)7.1.4\nMASVS-RESILIENCE-2",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 104,
-                  "score": ""
+                  "score": "0"
                 }
               ]
             }
@@ -1784,7 +1823,7 @@
           {
             "position": {
               "x": 790,
-              "y": 311
+              "y": 300
             },
             "size": {
               "width": 230,
@@ -1819,12 +1858,12 @@
                   "status": "Open",
                   "severity": "Medium",
                   "type": "Tampering",
-                  "description": "By Compromising one of the main servers and gaining admin access. The installation of a Rootkit would be possible on the OTT server\nCAPEC-439\nAtt&ck: T1195 \nAtt&ck: T1014 ",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "description": "By Compromising one of the main servers and gaining admin access. The installation of a Rootkit would be possible on the OTT server\nCAPEC-439\nAtt&ck: T1014 ",
+                  "mitigation": "A rootkit can be adressed by:\nD3-FV:  By Firmware Verification. any tampered firmware would be detected \nD3-FBA\nD3-SU\nD3-FEMC: By Embedding Firmware Monitoring Code unauthorized modifications would be detected\nD3-RS\nD3-FIM\nD3-DF\nD3-FE\nD3-LFP\nD3-RF\nD3-FA\n\n(ASVS)10.2.3\nMASVS-CODE-1",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 115,
-                  "score": ""
+                  "score": "4"
                 }
               ],
               "isBidirectional": false,
@@ -1930,11 +1969,11 @@
                   "severity": "Medium",
                   "type": "Information disclosure",
                   "description": "There are no internal priviledge checks.\nBy Accessing this. you can gain a lot of info.\nCAPEC-157\nT1040",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "mitigation": "In the SIEM D3-DNSTA is to be implemented\nD3-DNSTA (DNA Traffic analysis) analyses the domain name metadata for undesirable or malicious host such as botnets. \n\n(ASVS)7.1.4\nMASVS-RESILIENCE-2",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 112,
-                  "score": ""
+                  "score": "4"
                 }
               ],
               "isBidirectional": false,
@@ -1945,8 +1984,8 @@
           },
           {
             "position": {
-              "x": 1459,
-              "y": 100
+              "x": 1474,
+              "y": 86
             },
             "size": {
               "width": 370,
@@ -1967,7 +2006,7 @@
             "zIndex": 20,
             "id": "ef83516a-82b8-4749-a465-a89d246278fb",
             "data": {
-              "type": "tm.Process",
+              "type": "tm.Flow",
               "name": "SIEM-System\n",
               "description": "",
               "outOfScope": false,
@@ -1982,13 +2021,17 @@
                   "severity": "Medium",
                   "type": "Tampering",
                   "description": "By using valid compromised Admin accounts (Att&ck T1078) The system can be made to never trigger on any traffic (Att&ck T1565) via Config Manipulation (CAPEC-176)",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "mitigation": "The use of compromised valid accounts can be adressed by:\nD3-RAPA\nD3-SDA\nD3-JFAPA\nD3-AZET\nD3-DAM\nD3-ANET\nD3-MFA\nD3-OTP\nD3-AL\nD3-LAM: Analyse the activity of local accounts interacting with the SIEM system to detect unauthorized activity and Restore the Software and lock the account\nD3-BAN\nD3-SPP\nD3-UAP\nD3-RUAA\nD3-ULA\n\n(ASVS)1.4.4\nMASVS-AUTH-3",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 117,
-                  "score": ""
+                  "score": "0,8"
                 }
-              ]
+              ],
+              "isBidirectional": false,
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false
             }
           },
           {
@@ -2038,11 +2081,11 @@
                   "severity": "Medium",
                   "type": "Tampering",
                   "description": "The insertion of improper control flows due to the lack of input vetting enables the destruction, deletion (Att&ck: T1565 ) of data via Command injection (CAPEC-248)\n ",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "mitigation": "Data Manipulation can be adresssed by\nD3-RTSD\nD3-NTCD\nD3-PHDURA\nD3-CSPP \nD3-PMAD\nD3-UGLPA\nD3-NTF\nD3-DA\nD3-EFA\nD3-FR\nD3-DF\nD3-LFP\nD3-FE\nD3-FIM\nD3-EAL\nD3-EDL: This Blocks the execution of commands accordingly with well defined policies.\nThis includes: Malware scanners, scanners for known exploits. Files without signatures, runtime behaviour scanners or non allowed system or DB calls (This kind of falls into D3-SCA)\nD3-RF\nD3-FA\n\n(ASVS)5.1.1\nMASVS-CODE-4",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 116,
-                  "score": ""
+                  "score": "1"
                 }
               ],
               "isBidirectional": false,
