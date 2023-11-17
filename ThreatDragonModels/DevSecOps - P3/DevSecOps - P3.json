@@ -2,7 +2,7 @@
   "summary": {
     "title": "DevSecOps - P3",
     "owner": "Firma Allsecure",
-    "description": "Die Firma Allsecure betreibt unterschiedliche Anwendungen mit Hilfe einer 2-Faktorauthentifizierung via One-time token, der an das entsprechende Smartphone des Nutzers geschickt wird."
+    "description": "Die Firma Allsecure betreibt eine Anwendung mit Hilfe einer 2-Faktorauthentifizierung via One-time token, der an das entsprechende Mobile App des Nutzers geschickt wird. Es gibt auch weitere Sicherheitsmaßnahmen für die Versicherung des Datens."
   },
   "detail": {
     "contributors": [
