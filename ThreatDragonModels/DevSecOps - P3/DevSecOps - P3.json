@@ -7,12 +7,13 @@
   "detail": {
     "contributors": [
       {
-        "name": "Georg Neugebauer",
-        "$$hashKey": "object:14"
+        "name": "DevSecOps Kursteilnehmer"
       },
       {
-        "name": "DevSecOps Kursteilnehmer",
-        "$$hashKey": "object:16"
+        "name": "Daniel Kuo"
+      },
+      {
+        "name": "Martin Sitta"
       }
     ],
     "diagrams": [
@@ -2096,9 +2097,10 @@
         ],
         "version": "2.1.1",
         "title": "Architekturdiagramm",
-        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "thumbnail": "./public/content/images/thumbnail.jpg",
         "id": 0,
-        "diagramType": "STRIDE"
+        "diagramType": "Generic",
+        "placeholder": "New generic diagram description"
       }
     ],
     "reviewer": "Georg Neugebauer",
